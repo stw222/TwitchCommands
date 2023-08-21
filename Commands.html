@@ -2,17 +2,112 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>stw222 stream commands</title>
 		<style>
-			body   {padding: 2%; height: 100%; width: 100%}
-			table tr td, th {margin-top: 10px; margin-bottom 10px; border-top: 1px solid; border-right: 1px dashed; padding: 5px}
-			table  {align-content: center; border: double; margin: 1%; padding: 10px; border-collapse: collapse; text-align: center; vertical-align: bottom;}
+			body   {
+				padding: 2%;
+				height: 100%;
+				width: 100%
+			}
+			table tr td, th {
+				margin-top: 10px;
+				margin-bottom 10px;
+				border-top: 1px solid;
+				border-right: 1px dashed;
+				padding: 5px
+			}
+			table  {
+				center; border: double;
+				margin: 1%;
+				padding: 10px;
+				border-collapse: collapse;
+				text-align: center;
+				vertical-align: bottom;
+			}
+			/* Light Mode Button Styles
+			--------------------------- */ 
+			.light-mode-button {
+				background:0;
+				border: 0;
+				box-sizing: border-box;
+				cursor: pointer;
+				height: 40px;
+				width: 100px;
+				position: relative;
+				border: 1px solid rgba(255,255,255,0);
+			}
+			.light-mode-button:focus {
+				outline:none; /* Not ideal for accessibility */
+			}
+			.light-mode-button span:nth-child(1) {
+				position: absolute;
+				top:0;
+				left:0;
+				width: 100px;
+				height:40px;
+				border-radius: 20px;
+				background-color: #d6d7db;
+				box-shadow: inset 1px 1px 3px 0 rgb(0 0 0 / 40%);
+				transition: .3s;
+			}
+			.light-mode-button span:nth-child(2) {
+				position: absolute;
+				top:5px;
+				left:5px;
+				width: 30px;
+				height: 30px;
+				background-color: #fff;
+				border-radius: 50%;
+				box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 40%);
+				transition: .3s;
+			}			
+			/* Light & Dark Mode Styles
+			--------------------------- */ 
+			body {
+				background-color: #f6f6f6;
+				transition: background-color .3s;
+			}
+			body[light-mode=dark] {
+				background-color: #141516;
+				color: #ced4e2;
+			}
+			body[light-mode="dark"] .light-mode-button span:nth-child(1){
+				background-color: #ced4e2;
+				color: #141516;
+			}
+			body[light-mode=dark] .light-mode-button span:nth-child(2) {
+				left: 65px;
+				background-color: #141516;
+			}
 		</style>
 	</head>
 
 	<body>
-		<h1>Hi</h1>
-		<p><i>Dark Mode coming soon</i></p>
+		<!-- Dark mode tutorial from here: https://henryegloff.com/how-to-code-a-simple-dark-mode-toggle/ -->
+		<script>
+			var app = document.getElementsByTagName("BODY")[0];
+			if (localStorage.lightMode == "dark") {
+				app.setAttribute("light-mode", "dark");
+			}
+			window.addEventListener("storage", function () {
+				if (localStorage.lightMode == "dark") {
+					app.setAttribute("light-mode", "dark");
+				} else {
+					app.setAttribute("light-mode", "light");
+				}
+			}, false);
+		</script>
+		<div class="container">
+        <h2>Dark Mode Toggle:</h2>
+		<button 
+			class="light-mode-button" 
+			aria-label="Toggle Light Mode" 
+			onclick="toggle_light_mode()">
+			<span></span>
+			<span></span>
+		</button> 
+    	</div>
 		<h2>stw222 stream commands:</h2>
 		<p>All commands are prefixed with a "!"</p>
 		<p>*<i>Sometimes you may need to use CTRL + F5 to get the newest version of this page</i>*</p>
@@ -276,5 +371,18 @@
 		<br>
 		<h2>Moderator Only Commands:</h2>
 		<p>TBD</p>
+		
+		<script>
+		function toggle_light_mode() {
+			var app = document.getElementsByTagName("BODY")[0];
+			if (localStorage.lightMode == "dark") {
+			localStorage.lightMode = "light";
+			app.setAttribute("light-mode", "light");
+			} else {
+			localStorage.lightMode = "dark";
+			app.setAttribute("light-mode", "dark");
+			}		
+		}
+		</script>
 	</body>
 </html>
